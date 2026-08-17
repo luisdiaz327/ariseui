@@ -1216,7 +1216,7 @@ export function Demo() {
   return <MotionTabs items={items} />
 }`,
   },
-   {
+  {
     name: "Music Player",
     href: "/components/musicplayer",
     registry: "music-player",
@@ -1233,7 +1233,8 @@ export function Demo() {
         name: "tracks",
         type: "MusicTrack[]",
         default: "[]",
-        description: "Tracks available in the player. Each track includes a title and an audio source URL.",
+        description:
+          "Tracks available in the player. Each track includes a title and an audio source URL.",
       },
       {
         name: "defaultTrack",
@@ -1297,6 +1298,91 @@ export function Demo() {
 
 export function Demo() {
   return <YearInDots />
+}`,
+  },
+  {
+    name: "Dynamic Island",
+    href: "/components/dynamicisland",
+    registry: "dynamic-island",
+    description:
+      "A floating search and category filter bar that expands into selectable chips.",
+    introduction:
+      "Dynamic Island keeps search and category filtering in one compact floating control. The category menu expands below the input, so people can switch filters without losing their query.",
+    source: `${REGISTRY_HOMEPAGE}/blob/main/components/ui/dynamic-island.tsx`,
+    dependencies: [
+      {
+        name: "lucide-react",
+      },
+    ],
+    interaction:
+      "Type to update the search value. Open the category control to choose a filter, then press Escape or click away to close the drawer.",
+    props: [
+      {
+        name: "categories",
+        type: "string[]",
+        default: "[]",
+        description: "Category labels shown after the all option.",
+      },
+      {
+        name: "value",
+        type: "string",
+        description: "Controlled search value.",
+      },
+      {
+        name: "defaultValue",
+        type: "string",
+        default: '""',
+        description: "Initial search value when the component is uncontrolled.",
+      },
+      {
+        name: "onValueChange",
+        type: "(value: string) => void",
+        description: "Called when the search value changes.",
+      },
+      {
+        name: "category",
+        type: "string",
+        description: "Controlled active category.",
+      },
+      {
+        name: "defaultCategory",
+        type: "string",
+        description:
+          "Initial active category when the component is uncontrolled.",
+      },
+      {
+        name: "onCategoryChange",
+        type: "(category: string) => void",
+        description: "Called when a category is selected.",
+      },
+      {
+        name: "allLabel",
+        type: "string",
+        default: '"All"',
+        description: "Label used for the unfiltered category.",
+      },
+      {
+        name: "placeholder",
+        type: "string",
+        default: '"Search"',
+        description: "Text shown before a search value is entered.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Additional CSS classes for the outer wrapper.",
+      },
+    ],
+    usage: `import { DynamicIsland } from "@/components/ui/dynamic-island"
+
+export function Demo() {
+  return (
+    <DynamicIsland
+      categories={["Beach", "Gym", "Studio"]}
+      onValueChange={(value) => console.log(value)}
+      onCategoryChange={(category) => console.log(category)}
+    />
+  )
 }`,
   },
 ];
