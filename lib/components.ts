@@ -1216,6 +1216,53 @@ export function Demo() {
   return <MotionTabs items={items} />
 }`,
   },
+   {
+    name: "Music Player",
+    href: "/components/musicplayer",
+    registry: "music-player",
+    description:
+      "A tactile audio player with waveform seeking and playlist controls.",
+    introduction:
+      "Music Player presents a compact playlist player with a responsive waveform, a moving playhead, and tactile transport controls.",
+    source: `${REGISTRY_HOMEPAGE}/blob/main/components/ui/music-player.tsx`,
+    dependencies: [],
+    interaction:
+      "Play or pause the current track, move through the playlist, and click the waveform to seek. The waveform animates during playback unless reduced motion is enabled.",
+    props: [
+      {
+        name: "tracks",
+        type: "MusicTrack[]",
+        default: "[]",
+        description: "Tracks available in the player. Each track includes a title and an audio source URL.",
+      },
+      {
+        name: "defaultTrack",
+        type: "number",
+        default: "0",
+        description: "Index of the track selected when the player mounts.",
+      },
+      {
+        name: "onTrackChange",
+        type: "(track: MusicTrack, index: number) => void",
+        description: "Called after the selected track changes.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Additional classes merged onto the player.",
+      },
+    ],
+    usage: `import MusicPlayer from "@/components/ui/music-player"
+
+const tracks = [
+  { title: "First track", src: "/audio/first-track.mp3" },
+  { title: "Second track", src: "/audio/second-track.mp3" },
+]
+
+export function Demo() {
+  return <MusicPlayer tracks={tracks} />
+}`,
+  },
   {
     name: "Year in Dots",
     href: "/components/yearindots",

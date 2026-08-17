@@ -142,6 +142,20 @@
         }
       ]
     },
+     {
+      "name": "music-player",
+      "type": "registry:ui",
+      "title": "Music Player",
+      "description": "A tactile audio player with waveform seeking and playlist controls.",
+      "dependencies": [],
+      "registryDependencies": ["amitgajare2/ariseui/utils"],
+      "files": [
+        {
+          "path": "components/ui/music-player.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
     {
       "name": "github-calendar",
       "type": "registry:ui",
