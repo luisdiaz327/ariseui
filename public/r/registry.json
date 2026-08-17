@@ -142,7 +142,7 @@
         }
       ]
     },
-     {
+    {
       "name": "music-player",
       "type": "registry:ui",
       "title": "Music Player",
@@ -235,6 +235,20 @@
       "files": [
         {
           "path": "components/ui/year-in-dots.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dynamic-island",
+      "type": "registry:ui",
+      "title": "Dynamic Island",
+      "description": "A floating search and category filter bar that expands into selectable chips.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["amitgajare2/ariseui/utils"],
+      "files": [
+        {
+          "path": "components/ui/dynamic-island.tsx",
           "type": "registry:ui"
         }
       ]
