@@ -5,13 +5,13 @@ type TemplateBadge = "Free" | "Paid";
 
 const TEMPLATES = [
   {
-    title: "Portfolio website react js and tailwind css",
+    title: "Portfolio website react js and Css",
     badge: "Free" as const,
     description:
-      "A modern, responsive portfolio template for developers built with React and Tailwind CSS.",
-    image: "/assets/landing/portfolio.png",
-    downloadUrl: "#",
-    previewUrl: "#",
+      "A modern, responsive portfolio template for developers built with React and CSS.",
+    image: "https://i.ibb.co/7JxZrz49/Screenshot-2025-09-22-154318.png",
+    downloadUrl: "https://github.com/Amitgajare2/portfolio",
+    previewUrl: "https://amitg.netlify.app/",
   },
 ];
 
