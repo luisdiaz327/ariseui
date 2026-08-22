@@ -74,7 +74,7 @@ export default function DescriptionContent({
 
       {item?.registry && (
         <DocSection label="Installation" defaultOpen>
-          <InstallCommand item={item} />
+          <InstallCommand item={item} registryOverride={activeVariant?.registry} />
         </DocSection>
       )}
 

@@ -19,9 +19,10 @@ const ACTIVE_COLOR: Record<PackageManager, string> = {
   bun: "#FFFFFF",
 };
 
-export default function InstallCommand({ item }: { item: ComponentItem }) {
+export default function InstallCommand({ item, registryOverride }: { item: ComponentItem; registryOverride?: string }) {
   const [pm, setPm] = useState<PackageManager>("npm");
-  const command = installCommand(item, pm);
+  const effectiveItem = registryOverride ? { ...item, registry: registryOverride } : item;
+  const command = installCommand(effectiveItem, pm);
   if (!command) return null;
 
   return (
