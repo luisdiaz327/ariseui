@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { motion } from "motion/react";
-import { CodeXml, Maximize, Minimize } from "lucide-react";
+import { CodeXml, Maximize, Minimize, Library } from "lucide-react";
 import { activeComponent } from "@/lib/components";
 import CodeDrawer from "./CodeDrawer";
 import DescriptionContent from "./DescriptionContent";
@@ -19,12 +19,30 @@ type DescriptionPanelProps = {
 
 export function DescriptionPanel({ open, setOpen }: DescriptionPanelProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const item = activeComponent(pathname);
 
+  const activeVariantId = searchParams.get("variant") ?? item?.variants?.[0]?.id;
+  const activeVariant = item?.variants?.find((v) => v.id === activeVariantId);
+
   const [codeOpen, setCodeOpen] = useState(false);
+  const [variantsOpen, setVariantsOpen] = useState(false);
+  const variantsRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!open) setCodeOpen(false);
   }, [open]);
+
+  useEffect(() => {
+    if (!variantsOpen) return;
+    function handleClick(e: MouseEvent) {
+      if (variantsRef.current && !variantsRef.current.contains(e.target as Node)) {
+        setVariantsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [variantsOpen]);
 
   const toggleCode = () => {
     if (codeOpen) {
@@ -35,9 +53,52 @@ export function DescriptionPanel({ open, setOpen }: DescriptionPanelProps) {
     }
   };
 
+  const hasVariants = item?.variants && item.variants.length > 0;
+
+  // for components with variants, use the active variant's registry for source
+  const registryForCode = activeVariant?.registry ?? item?.registry;
+
   return (
     <div className="pointer-events-none absolute right-0 top-0 z-40 h-full">
       <div className="pointer-events-auto absolute top-4 right-4 z-50 flex items-center gap-2 rounded-2xl border-apple bg-muted p-2 shadow-sm">
+
+        {hasVariants && (
+          <div ref={variantsRef} className="relative">
+            <Tooltip label="Variants" align="start">
+              <button
+                type="button"
+                onClick={() => setVariantsOpen((v) => !v)}
+                aria-label="Switch variant"
+                aria-expanded={variantsOpen}
+                className="cursor-pointer rounded-full bg-popover p-1"
+              >
+                <Library className="h-5 w-5" />
+              </button>
+            </Tooltip>
+
+            {variantsOpen && (
+              <ul
+                role="menu"
+                className="absolute right-0 top-full mt-2 min-w-[160px] overflow-hidden rounded-xl bg-popover shadow-lg"
+              >
+                {item!.variants!.map((v, i) => (
+                  <li key={v.id} role="none">
+                    <a
+                      href={`${pathname}?variant=${v.id}`}
+                      role="menuitem"
+                      onClick={() => setVariantsOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-muted"
+                    >
+                      <span className="text-muted-foreground tabular-nums">{i + 1}</span>
+                      {v.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+
         <Tooltip label={open ? "Close description" : "Open description"}>
           <button
             type="button"
@@ -81,13 +142,18 @@ export function DescriptionPanel({ open, setOpen }: DescriptionPanelProps) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-12 bg-gradient-to-t from-background to-transparent" />
 
         <div className="no-scrollbar flex flex-1 flex-col overflow-y-auto">
-          <DescriptionContent item={item} className="p-8 pt-60" />
+          <DescriptionContent
+            item={item}
+            activeVariant={activeVariant}
+            className="p-8 pt-60"
+          />
         </div>
 
         <CodeDrawer
           open={codeOpen}
           onClose={() => setCodeOpen(false)}
           item={item}
+          registryOverride={registryForCode}
         />
       </motion.div>
     </div>

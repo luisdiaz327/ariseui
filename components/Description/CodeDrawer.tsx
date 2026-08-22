@@ -10,25 +10,28 @@ type CodeDrawerProps = {
   open: boolean;
   onClose: () => void;
   item?: ComponentItem;
+  registryOverride?: string;
 };
 
-export default function CodeDrawer({ open, onClose, item }: CodeDrawerProps) {
+export default function CodeDrawer({ open, onClose, item, registryOverride }: CodeDrawerProps) {
   const dragControls = useDragControls();
   const [code, setCode] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const registry = registryOverride ?? item?.registry;
+
   useEffect(() => {
-    if (!open || !item?.registry) return;
+    if (!open || !registry) return;
     let cancelled = false;
     setLoading(true);
     setCode(null);
-    fetchSource(item.registry)
+    fetchSource(registry)
       .then((text) => !cancelled && setCode(text))
       .finally(() => !cancelled && setLoading(false));
     return () => {
       cancelled = true;
     };
-  }, [open, item?.registry]);
+  }, [open, registry]);
 
   return (
     <motion.div

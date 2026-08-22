@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useIsMobile } from "@/lib/use-media-query";
 import DesktopShell from "./DesktopShell";
 import MobileShell from "./MobileShell";
@@ -14,11 +15,13 @@ export default function SidebarShell({
 
   return (
     <PreviewControlsProvider>
-      {isMobile ? (
-        <MobileShell>{children}</MobileShell>
-      ) : (
-        <DesktopShell>{children}</DesktopShell>
-      )}
+      <Suspense>
+        {isMobile ? (
+          <MobileShell>{children}</MobileShell>
+        ) : (
+          <DesktopShell>{children}</DesktopShell>
+        )}
+      </Suspense>
     </PreviewControlsProvider>
   );
 }

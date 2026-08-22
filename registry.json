@@ -240,6 +240,52 @@
       ]
     },
     {
+      "name": "particle-text",
+      "type": "registry:ui",
+      "title": "Particle Text",
+      "description": "Canvas-based text that dissolves into particles and scatters away from the cursor.",
+      "dependencies": [],
+      "registryDependencies": ["amitgajare2/ariseui/utils"],
+      "files": [
+        {
+          "path": "components/ui/particle-text.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "text-pressure",
+      "type": "registry:ui",
+      "title": "Text Pressure",
+      "description": "Variable-font text whose weight and italic axes respond to cursor proximity.",
+      "dependencies": [],
+      "registryDependencies": ["amitgajare2/ariseui/utils"],
+      "files": [
+        {
+          "path": "components/ui/text-pressure.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "text-effects",
+      "type": "registry:ui",
+      "title": "Text Effects",
+      "description": "Interactive text animations driven by cursor proximity: particle scatter and variable-font pressure.",
+      "dependencies": [],
+      "registryDependencies": ["amitgajare2/ariseui/utils"],
+      "files": [
+        {
+          "path": "components/ui/particle-text.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/text-pressure.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dynamic-island",
       "type": "registry:ui",
       "title": "Dynamic Island",

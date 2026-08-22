@@ -1,6 +1,6 @@
 "use client";
 
-import { type ComponentItem, PANEL_INFO } from "@/lib/components";
+import { type ComponentItem, type ComponentVariant, PANEL_INFO } from "@/lib/components";
 import { cn } from "@/lib/utils";
 import CopyButton from "../CopyButton";
 import Tooltip from "../Tooltip";
@@ -13,6 +13,7 @@ import { MailIcon, XIcon } from "./icons";
 
 type DescriptionContentProps = {
   item?: ComponentItem;
+  activeVariant?: ComponentVariant;
   showSourceHint?: boolean;
   className?: string;
 };
@@ -27,9 +28,12 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 export default function DescriptionContent({
   item,
+  activeVariant,
   showSourceHint = true,
   className,
 }: DescriptionContentProps) {
+  const usage = activeVariant?.usage ?? item?.usage;
+  const props = activeVariant?.props ?? item?.props;
   return (
     <div className={cn("flex flex-col gap-12 text-left", className)}>
 
@@ -59,12 +63,12 @@ export default function DescriptionContent({
         </DocSection>
       )}
 
-      {item?.props && item.props.length > 0 && (
+      {props && props.length > 0 && (
         <DocSection label="Props" defaultOpen>
           <p className="-mt-1 mb-3 text-sm leading-relaxed text-foreground/80 dark:text-foreground/70">
             Options you can pass to customize this component.
           </p>
-          <PropsTable props={item.props} />
+          <PropsTable props={props} />
         </DocSection>
       )}
 
@@ -74,9 +78,9 @@ export default function DescriptionContent({
         </DocSection>
       )}
 
-      {item?.usage && (
+      {usage && (
         <DocSection label="How to use">
-          <PanelCode code={item.usage} className="rounded-lg p-4" />
+          <PanelCode code={usage} className="rounded-lg p-4" />
         </DocSection>
       )}
 

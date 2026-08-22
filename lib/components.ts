@@ -17,6 +17,14 @@ export type ComponentProp = {
   description: string;
 };
 
+export type ComponentVariant = {
+  id: string;
+  label: string;
+  registry?: string;
+  usage?: string;
+  props?: ComponentProp[];
+};
+
 export type ComponentItem = {
   name: string;
   href: string;
@@ -29,6 +37,7 @@ export type ComponentItem = {
   usage?: string;
   props?: ComponentProp[];
   credits?: string[];
+  variants?: ComponentVariant[];
 };
 
 export const REGISTRY_HOMEPAGE = "https://github.com/amitgajare2/ariseui";
@@ -1298,6 +1307,188 @@ export function Demo() {
 
 export function Demo() {
   return <YearInDots />
+}`,
+  },
+  {
+    name: "Text Effects",
+    href: "/components/texteffects",
+    registry: "text-effects",
+    source: `${REGISTRY_HOMEPAGE}/blob/main/components/ui/particle-text.tsx`,
+    description:
+      "Interactive text animations driven by cursor proximity: particle scatter and variable-font pressure.",
+    introduction:
+      "Text Effects bundles two cursor-reactive text animations. Particle Text dissolves lettering into a field of dots that scatter away from the pointer and snap back. Text Pressure drives a variable font's weight and italic axes based on how close the cursor gets.",
+    interaction:
+      "Move the cursor over the text to scatter particles or bend the font's weight and italic axes. Switch variants from the bottom picker.",
+    props: [],
+    variants: [
+      {
+        id: "particle-text",
+        label: "Particle Text",
+        registry: "particle-text",
+        props: [
+          {
+            name: "text",
+            type: "string",
+            default: '"Hello"',
+            description: "Text rendered as the particle field.",
+          },
+          {
+            name: "fontSize",
+            type: "number",
+            default: "120",
+            description: "Font size in pixels used to sample the text shape.",
+          },
+          {
+            name: "particleSize",
+            type: "number",
+            default: "3",
+            description: "Width and height of each particle in pixels.",
+          },
+          {
+            name: "particleGap",
+            type: "number",
+            default: "5",
+            description: "Sampling stride in pixels. Smaller values produce denser particle fields.",
+          },
+          {
+            name: "repelRadius",
+            type: "number",
+            default: "120",
+            description: "Distance in pixels within which the cursor repels particles.",
+          },
+          {
+            name: "repelStrength",
+            type: "number",
+            default: "7",
+            description: "Force multiplier applied when the cursor is inside the repel radius.",
+          },
+          {
+            name: "returnSpeed",
+            type: "number",
+            default: "0.1",
+            description: "Spring constant pulling each particle back to its origin.",
+          },
+          {
+            name: "damping",
+            type: "number",
+            default: "0.84",
+            description: "Velocity multiplier applied each frame. Lower values stop particles faster.",
+          },
+          {
+            name: "color",
+            type: "string",
+            description: "Particle color. Defaults to the element's computed text color.",
+          },
+          {
+            name: "className",
+            type: "string",
+            description: "Additional classes merged onto the root wrapper.",
+          },
+        ],
+        usage: `import ParticleText from "@/components/ui/particle-text"
+
+export function Demo() {
+  return (
+    <div className="h-64 w-full">
+      <ParticleText text="Hello" fontSize={120} />
+    </div>
+  )
+}`,
+      },
+      {
+        id: "text-pressure",
+        label: "Text Pressure",
+        registry: "text-pressure",
+        props: [
+          {
+            name: "text",
+            type: "string",
+            default: '"Pressure"',
+            description: "Text to render with the pressure effect.",
+          },
+          {
+            name: "fontFamily",
+            type: "string",
+            description: "CSS font-family applied to the text. Defaults to the inherited family.",
+          },
+          {
+            name: "fontUrl",
+            type: "string",
+            description: "URL of a variable font to load. Requires fontFamily to be set.",
+          },
+          {
+            name: "minWeight",
+            type: "number",
+            default: "100",
+            description: "Font weight when the cursor is far from a character.",
+          },
+          {
+            name: "maxWeight",
+            type: "number",
+            default: "900",
+            description: "Font weight when the cursor is directly over a character.",
+          },
+          {
+            name: "minScale",
+            type: "number",
+            default: "0.85",
+            description: "Scale applied to characters at maximum distance.",
+          },
+          {
+            name: "maxScale",
+            type: "number",
+            default: "1.2",
+            description: "Scale applied to characters at minimum distance.",
+          },
+          {
+            name: "minItalic",
+            type: "number",
+            default: "0",
+            description: "Oblique angle in degrees when the cursor is far away.",
+          },
+          {
+            name: "maxItalic",
+            type: "number",
+            default: "14",
+            description: "Oblique angle in degrees when the cursor is directly over a character.",
+          },
+          {
+            name: "radius",
+            type: "number",
+            default: "250",
+            description: "Distance in pixels within which the cursor influences characters.",
+          },
+          {
+            name: "className",
+            type: "string",
+            description: "Additional classes merged onto the root wrapper.",
+          },
+          {
+            name: "textClassName",
+            type: "string",
+            description: "Additional classes merged onto the text element.",
+          },
+        ],
+        usage: `import TextPressure from "@/components/ui/text-pressure"
+
+export function Demo() {
+  return (
+    <div className="h-64 w-full">
+      <TextPressure text="Pressure" minWeight={100} maxWeight={900} />
+    </div>
+  )
+}`,
+      },
+    ],
+    usage: `import ParticleText from "@/components/ui/particle-text"
+
+export function Demo() {
+  return (
+    <div className="h-64 w-full">
+      <ParticleText text="Hello" fontSize={120} />
+    </div>
+  )
 }`,
   },
   {
