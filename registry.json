@@ -17,6 +17,20 @@
       ]
     },
     {
+      "name": "prompt-card",
+      "type": "registry:ui",
+      "title": "Prompt Card",
+      "description": "A compact card that toggles between a visual preview and the full prompt, with copy actions and palette swatches.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["amitgajare2/ariseui/utils"],
+      "files": [
+        {
+          "path": "components/ui/prompt-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "bounce-sidebar",
       "type": "registry:ui",
       "title": "Bounce Sidebar",

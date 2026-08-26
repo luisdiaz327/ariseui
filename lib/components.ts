@@ -94,6 +94,63 @@ export const PANEL_INFO = {
 
 export const components: ComponentItem[] = [
   {
+    name: "Prompt Card",
+    href: "/components/promptcard",
+    registry: "prompt-card",
+    description:
+      "A compact card that toggles between a visual preview and the full prompt, with copy actions and palette swatches.",
+    introduction:
+      "Prompt Card is a gallery-style prompt tile that flips between a full-image view and a readable prompt panel. It keeps the visual preview quietly layered, then exposes the prompt, copy action, and brand palette in a crisp overlay.",
+    source: `${REGISTRY_HOMEPAGE}/blob/main/components/ui/prompt-card.tsx`,
+    dependencies: [
+      {
+        name: "lucide-react",
+        icon: createElement(MotionIcon, { className: "h-4 w-4" }),
+      },
+    ],
+    interaction:
+      "Tap the card to switch from preview to prompt, then copy the text with the compact action button.",
+    props: [
+      {
+        name: "prompt",
+        type: "Prompt",
+        required: true,
+        description:
+          "Prompt data used for the image, title, copy text, and palette swatches.",
+      },
+      {
+        name: "index",
+        type: "number",
+        default: "0",
+        description:
+          "Used for the delayed entrance animation when cards are rendered in a grid.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Extra classes merged onto the root article element.",
+      },
+    ],
+    usage: `import { PromptCard, type Prompt } from "@/components/ui/prompt-card"
+
+const prompt: Prompt = {
+  id: 1,
+  image: "/images/workbench.jpg",
+  imageAlt: "Warm editorial workspace",
+  kicker: "Brand",
+  brand: "Signal",
+  category: "Creative system",
+  title: "Warm editorial prompts",
+  prompt: "Design a calm workspace that keeps the interface warm, the hierarchy sharp, and the active control bright.",
+  footer: "Prompt set · Studio notes",
+  palette: ["#171715", "#d7d1c3", "#c8ef57", "#e9d7b3"],
+}
+
+export function Demo() {
+  return <PromptCard prompt={prompt} index={0} />
+}`,
+  },
+  {
     name: "Bounce sidebar",
     href: "/components/bouncesidebar",
     registry: "bounce-sidebar",
